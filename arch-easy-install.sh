@@ -96,6 +96,8 @@ cp arch-easy-install-chroot.sh /mnt
 cp misc/sudoers.file /mnt/etc/sudoers
 cp misc/post-inst.py /mnt
 cp misc/pm_aur.py /mnt
+cp misc/inst_paru.sh /mnt
+cp misc/inst_yay.sh /mnt
 echo $sd > /mnt/main_disk
 arch-chroot /mnt sh arch-easy-install-chroot.sh
 echo "Instalado correctamente"

@@ -43,9 +43,12 @@ python3 post-inst.py $hostname
 echo "Instalando un gestor de paqueter AUR"
 choice=$(gum choose "yay" "paru")
 python3 pm_aur.py $choice
+echo "Despues de reiniciar debes compilar el gestor de paquetes"
 echo "A partir de aqui tendras instalado arch linux, puedes personalizar tu instalacion mediante pacman o $choice que es el gestor de paquetes AUR"
 echo "Limpiando"
 rm /post-inst.py
 rm /main_disk
 rm /pm_aur.py
+rm /inst_paru.sh
+rm /inst_yay.sh
 exit
