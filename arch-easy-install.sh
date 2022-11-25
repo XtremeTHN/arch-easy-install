@@ -77,14 +77,14 @@ echo "Comenzando instalacion automatizada..."
 mount $sd /mnt
 mount --mkdir $sdB /mnt/boot
 mount --mkdir $sdB /mnt/boot/efi
-echo "Paquetes a instalar: linux linux-firmware linux-headers networkmanager grub wpa_supplicant base base-devel python"
+echo "Paquetes a instalar: linux linux-firmware linux-headers networkmanager grub wpa_supplicant base base-devel python vim nano"
 echo "Deseas instalar paquetes adicionales?"
 choice=$(gum choose "Si" "No")
 if [ $choice = "Si" ]; then
   echo "Escribelos separados por espacios"
   aditional_pkgs=$(gum input --placeholder "Paquetes")
 fi
-pacstrap /mnt linux linux-firmware linux-headers networkmanager grub wpa_supplicant base base-devel gum $additional_pkgs
+pacstrap /mnt linux linux-firmware linux-headers networkmanager grub wpa_supplicant base base-devel gum python vim nano git $additional_pkgs
 if [ $? -gt 0 ]; then
   echo "$RED [x] $RESET Se ha producido un error al crear la raiz del sistema e/o instalar los paquetes"
   exit

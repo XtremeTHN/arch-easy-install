@@ -39,4 +39,14 @@ echo "Define el nombre de tu maquina (arch, $user, etc)"
 hostname=$(gum input --placeholder "Hostname")
 echo $hostname > /etc/hostname
 python3 post-inst.py $hostname
+echo "Instalando un gestor de paqueter AUR"
+choice=$(gum choose "yay" "paru")
+if [ $choice = "yay" ]; do
+  git clone https://github.com/Jguer/yay.git
+  cd yay && makepkg -si
+else
+  git clone https://github.com/Morganamilo/paru.git
+  cd paru && makepkg -si
+fi
+
 exit
