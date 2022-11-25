@@ -91,8 +91,10 @@ if [ $? -gt 0 ]; then
 fi
 echo "Creando tabla de particiones"
 genfstab -U /mnt > /mnt/etc/fstab
-echo "Ejecutando segunda parte en chroot..."
+echo "Preparando segunda parte para correr en chroot..."
 mv arch-easy-install-chroot /mnt
+mv misc/sudoers.file /mnt/etc/sudoers
+echo $sd > /mnt/main_disk
 arch-chroot /mnt sh arch-easy-install-chroot.sh
 echo "Instalado correctamente"
 echo "Puedes reiniciar"
