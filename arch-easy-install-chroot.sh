@@ -20,7 +20,7 @@ echo "Si no descomentaste alguna region se compilara normalmente"
 echo "Puedes editar manualmente la region editando con cualquier editor de texto el archivo /etc/locale.gen"
 locale-gen
 echo "Quieres cargar una distribucion de teclado?"
-yes_no=$(gum choice "Si" "No")
+yes_no=$(gum choose "Si" "No")
 
 if [ "$yes_no" = "Si" ]; then
   choice=$(gum input --placeholder "Distro. teclado")
