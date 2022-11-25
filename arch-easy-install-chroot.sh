@@ -33,7 +33,8 @@ if [ "$yes_no" = "Si" ]; then
 fi
 echo "Instalando grub..."
 pacman -S efibootmgr
-grub-install $(cat /mnt/main_disk)
+echo "Vuelve a escribir"
+grub-install $(cat /main_disk)
 grub-mkconfig -o /boot/grub/grub.cfg
 echo "Define el nombre de tu maquina (arch, $user, etc)"
 hostname=$(gum input --placeholder "Hostname")
@@ -48,5 +49,8 @@ else
   git clone https://github.com/Morganamilo/paru.git
   cd paru && makepkg -si
 fi
-
+echo "A partir de aqui tendras instalado arch linux, puedes personalizar tu instalacion mediante pacman o $choice que es el gestor de paquetes AUR"
+echo "Limpiando"
+rm /post-inst.py
+rm /main_disk
 exit
