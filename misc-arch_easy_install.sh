@@ -53,7 +53,7 @@ fi
 gum confirm "Se formateara el disco que selecciones y los archivos seran eliminados, ¿Deseas continuar?"
 
 echo "Las particiones tendrás que crearlas manualmente, predeterminadamente solo se ocupan 3 particiones, una particion para la raiz del sistema, una para el booteo y otra para archivos de intercambio (swap)"
-exec cfdisk
+cfdisk
 echo "Particion principal"
 sd=$(gum input --placeholder "/dev/sda(1,2,3..)")
 echo "Particion boot"
