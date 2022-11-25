@@ -33,7 +33,7 @@ if [ "$yes_no" = "Si" ]; then
 fi
 echo "Instalando grub..."
 pacman -S efibootmgr
-echo "Vuelve a escribir"
+echo $(cat /main_disk)
 grub-install $(cat /main_disk)
 grub-mkconfig -o /boot/grub/grub.cfg
 echo "Define el nombre de tu maquina (arch, $user, etc)"
@@ -42,7 +42,7 @@ echo $hostname > /etc/hostname
 python3 post-inst.py $hostname
 echo "Instalando un gestor de paqueter AUR"
 choice=$(gum choose "yay" "paru")
-if [ $choice = "yay" ]; do
+if [ "$choice" = "yay" ]; do
   git clone https://github.com/Jguer/yay.git
   cd yay && makepkg -si
 else

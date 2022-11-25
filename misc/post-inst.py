@@ -1,7 +1,6 @@
 import sys
 
-text = 
-f"""
+text = f"""
 # Static table lookup for hostnames.
 # See hosts(5) for details.
 
