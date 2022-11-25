@@ -64,13 +64,17 @@ sdS=$(gum input --placeholder "/dev/sda(1,2,3..)")
 echo "Formato de la particion principal?"
 format=$(gum choose "btrfs" "ext4")
 if [ format = "btrfs" ]; then
-	mkfs.btrfs $sd
+	mkfs.btrfs -F $sd
+fi
+
+if [ format = "ext4" ]; then
+  mkfs.ext4 $sd
+fi
 mkfs.vfat -F 32 $sdB
 mkswap $sdS
 swapon
 
-if [ -d "$DIR" ]
-then
+if [ -d "$DIR" ]; then
   echo "Instalando efibootmgr...."
   
 else
