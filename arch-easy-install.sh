@@ -7,7 +7,6 @@ if [ "$(id -nu)" != "root" ]; then
 	exit 1
 fi
 
-DIR=/sys/firmware/efi/
 RED="\x1b[31m"
 RESET="\x1b[0m"
 echo "Bienvenido al script de instalacion BSPWM, comenzará la instalacion automaticamente"
@@ -74,10 +73,27 @@ mkfs.vfat -F 32 $sdB
 mkswap $sdS
 swapon
 
-if [ -d "$DIR" ]; then
-  echo "Instalando efibootmgr...."
-  
-else
-  echo "Efi no soportado..."
+echo "Comenzando instalacion automatizada..."
+mount $sd /mnt
+mount --mkdir $sdB /mnt/boot
+mount --mkdir $sdB /mnt/boot/efi
+echo "Paquetes a instalar: linux linux-firmware linux-headers networkmanager grub wpa_supplicant base base-devel"
+echo "Deseas instalar paquetes adicionales?"
+choice=$(gum choose "Si" "No")
+if [ $choice = "Si" ]; then
+  echo "Escribelos separados por espacios"
+  aditional_pkgs=$(gum input --placeholder "Paquetes")
 fi
-
+pacstrap /mnt linux linux-firmware linux-headers networkmanager grub wpa_supplicant base base-devel gum $additional_pkgs
+if [ $? -gt 0 ]; then
+  echo "$RED [x] $RESET Se ha producido un error al crear la raiz del sistema e/o instalar los paquetes"
+  exit
+fi
+echo "Creando tabla de particiones"
+genfstab -U /mnt > /mnt/etc/fstab
+echo "Ejecutando segunda parte en chroot..."
+mv arch-easy-install-chroot /mnt
+arch-chroot /mnt sh arch-easy-install-chroot.sh
+echo "Instalado correctamente"
+echo "Puedes reiniciar"
+exit
