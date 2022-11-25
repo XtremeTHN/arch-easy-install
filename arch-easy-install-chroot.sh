@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 echo "Corriendo en arch-chroot"
 echo "Define una contraseña para el usuario root"
 passwd
@@ -16,17 +16,9 @@ echo "Edita manualmente la region que quieras compilar"
 echo "Pulsa cualquier tecla"
 read
 nano /etc/locale.gen
-echo "Si no descomentaste alguna region aparecera un error"
+echo "Si no descomentaste alguna region se compilara normalmente"
+echo "Puedes editar manualmente la region editando con cualquier editor de texto el archivo /etc/locale.gen"
 locale-gen
-localerr="$?"
-if [ "$localerr" -gt 0 ]; do
-  echo "Un error ha ocurrido, volviendo a abrir"
-  while [ "$localerr" -eq 0 ]; do
-    nano /etc/locale.gen
-    locale-gen
-    localerr="$?"
-  done
-fi
 echo "Quieres cargar una distribucion de teclado?"
 yes_no=$(gum choice "Si" "No")
 
@@ -46,5 +38,5 @@ grub-mkconfig -o /boot/grub/grub.cfg
 echo "Define el nombre de tu maquina (arch, $user, etc)"
 hostname=$(gum input --placeholder "Hostname")
 echo $hostname > /etc/hostname
-echo "# Static table lookup for hostnames.\n# See hosts(5) for details.\n\n127.0.0.1         localhost\n::1               localhost\n127.0.0.1         $hostname.localhost $hostname" > /etc/hosts
+python3 post-inst.py $hostname
 exit

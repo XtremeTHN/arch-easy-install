@@ -77,7 +77,7 @@ echo "Comenzando instalacion automatizada..."
 mount $sd /mnt
 mount --mkdir $sdB /mnt/boot
 mount --mkdir $sdB /mnt/boot/efi
-echo "Paquetes a instalar: linux linux-firmware linux-headers networkmanager grub wpa_supplicant base base-devel"
+echo "Paquetes a instalar: linux linux-firmware linux-headers networkmanager grub wpa_supplicant base base-devel python"
 echo "Deseas instalar paquetes adicionales?"
 choice=$(gum choose "Si" "No")
 if [ $choice = "Si" ]; then
@@ -92,8 +92,9 @@ fi
 echo "Creando tabla de particiones"
 genfstab -U /mnt > /mnt/etc/fstab
 echo "Preparando segunda parte para correr en chroot..."
-mv arch-easy-install-chroot /mnt
-mv misc/sudoers.file /mnt/etc/sudoers
+cp arch-easy-install-chroot.sh /mnt
+cp misc/sudoers.file /mnt/etc/sudoers
+cp misc/post-inst.py /mnt
 echo $sd > /mnt/main_disk
 arch-chroot /mnt sh arch-easy-install-chroot.sh
 echo "Instalado correctamente"
