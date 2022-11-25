@@ -63,7 +63,7 @@ sdS=$(gum input --placeholder "/dev/sda(1,2,3..)")
 
 echo "Formato de la particion principal?"
 format=$(gum choose "btrfs" "ext4")
-if [ format = "btrfs" ]; then
+if [ "$format" = "btrfs" ]; then
 	mkfs.btrfs -F $sd
 fi
 
