@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/bin/bash
 if [ "$(id -nu)" != "root" ]; then
 	sudo -k
 	echo "[x] No hay permisos de superusuario activos, solicitando"
@@ -92,7 +92,7 @@ fi
 echo "Creando tabla de particiones"
 genfstab -U /mnt > /mnt/etc/fstab
 echo "Preparando segunda parte para correr en chroot..."
-cp arch-easy-install-chroot.sh /mnt
+cp misc/arch-easy-install-chroot.sh /mnt
 cp misc/sudoers.file /mnt/etc/sudoers
 cp misc/post-inst.py /mnt
 cp misc/pm_aur.py /mnt
